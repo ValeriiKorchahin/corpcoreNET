@@ -15,7 +15,6 @@ namespace Corpcore.Dtos.User
         [MinLength(8)]
         public required string Password { get; set; }
         public OrganizationRolesEnum Role { get; set; } = OrganizationRolesEnum.USER;
-
         [Required]
         public Guid OrganizationId { get; set; }
     }

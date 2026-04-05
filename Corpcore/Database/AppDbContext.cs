@@ -5,7 +5,7 @@ namespace Corpcore.Database
 {
     public class AppDbContext(DbContextOptions<AppDbContext> options): DbContext(options)
     {
-        DbSet<Organization> Organizations { get; set; }
-        DbSet<User> Users { get; set; } 
+        public DbSet<Organization> Organizations { get; set; }
+        public DbSet<User> Users { get; set; } 
     }
 }
