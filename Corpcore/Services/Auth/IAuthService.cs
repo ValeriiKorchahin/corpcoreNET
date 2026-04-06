@@ -4,7 +4,7 @@ namespace Corpcore.Services.Auth
 {
     public interface IAuthService
     {
-        Task Login(LoginDto request);
-        Task Register(RegisterDto request);
+        Task<AuthResponseDto> Login(LoginDto request);
+        Task<AuthResponseDto> Register(RegisterDto request);
     }
 }
