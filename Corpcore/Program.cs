@@ -1,6 +1,8 @@
 using Corpcore.Database;
+using Corpcore.Models;
 using Corpcore.Services.Auth;
 using Corpcore.Services.Auth.Password;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
@@ -16,6 +18,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<IPasswordHasherService, PasswordHasherService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 

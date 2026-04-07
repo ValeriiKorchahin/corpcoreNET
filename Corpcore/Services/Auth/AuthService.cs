@@ -2,15 +2,13 @@
 using Corpcore.Dtos.Auth;
 using Corpcore.Models;
 using Corpcore.Services.Auth.Password;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Collections;
 
 namespace Corpcore.Services.Auth
 {
     public class AuthService(
         AppDbContext _context,
-        PasswordHasherService _passwordHasher
+        IPasswordHasherService _passwordHasher
         ) : IAuthService
     {
 
@@ -22,7 +20,7 @@ namespace Corpcore.Services.Auth
             if (user == null)
                 throw new Exception("Invalid credentials");
 
-            bool isPasswordCorrect = _passwordHasher.Verify(user.Password, request.Password);
+            bool isPasswordCorrect = _passwordHasher.Verify(user, request.Password);
 
             if (!isPasswordCorrect)
                 throw new Exception("Invalid credentials");
@@ -67,11 +65,13 @@ namespace Corpcore.Services.Auth
             {
                 Id = Guid.NewGuid(),
                 Email = request.Email,
-                Password = _passwordHasher.Hash(request.Password),
+                Password = request.Password,
                 Name = request.UserName,
                 Role = request.Role,
                 OrganizationId = organization.Id,
             };
+
+            user.Password = _passwordHasher.Hash(user);
 
             using var transaction = await _context.Database.BeginTransactionAsync();
             try

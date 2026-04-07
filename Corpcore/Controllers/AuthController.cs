@@ -1,17 +1,15 @@
 ﻿using Corpcore.Dtos.Auth;
 using Corpcore.Services.Auth;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace Corpcore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController(AuthService _authService) : ControllerBase
+    public class AuthController(IAuthService _authService) : ControllerBase
     {
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginDto request) 
+        public async Task<IActionResult> Login([FromBody] LoginDto request)
         {
             try
             {
@@ -32,9 +30,10 @@ namespace Corpcore.Controllers
                 var response = await _authService.Register(request);
                 return Ok(response);
             }
-            catch 
+            catch
             {
                 throw new Exception("Register Failed.");
             }
+        }
     }
 }

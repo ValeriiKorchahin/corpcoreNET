@@ -4,7 +4,7 @@ namespace Corpcore.Services.Auth.Password
 {
     public interface IPasswordHasherService
     {
-        string Hash(string password);
-        bool Verify(string passwordHash, string password);    
+        string Hash(User user);
+        bool Verify(User user, string password);    
     }
 }
