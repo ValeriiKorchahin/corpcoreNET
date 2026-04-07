@@ -15,7 +15,6 @@ namespace Corpcore.Dtos.Auth
         [Required]
         [EmailAddress]
         public required string Email { get; set; }
-        public OrganizationRolesEnum Role { get; } = OrganizationRolesEnum.MANAGER;
         [Required]
         [MaxLength(50)]
         [MinLength(3)]

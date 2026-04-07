@@ -67,7 +67,7 @@ namespace Corpcore.Services.Auth
                 Email = request.Email,
                 Password = request.Password,
                 Name = request.UserName,
-                Role = request.Role,
+                Role = utils.Enums.OrganizationRolesEnum.MANAGER,
                 OrganizationId = organization.Id,
             };
 
