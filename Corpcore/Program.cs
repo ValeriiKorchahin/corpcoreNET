@@ -1,4 +1,5 @@
 using Corpcore.Database;
+using Corpcore.Middlewares;
 using Corpcore.Models;
 using Corpcore.Services.Auth;
 using Corpcore.Services.Auth.Password;
@@ -23,6 +24,8 @@ builder.Services.AddScoped<IPasswordHasherService, PasswordHasherService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

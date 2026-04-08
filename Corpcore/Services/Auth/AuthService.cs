@@ -2,6 +2,7 @@
 using Corpcore.Dtos.Auth;
 using Corpcore.Models;
 using Corpcore.Services.Auth.Password;
+using Corpcore.Utils.Error;
 using Microsoft.EntityFrameworkCore;
 
 namespace Corpcore.Services.Auth
@@ -18,12 +19,12 @@ namespace Corpcore.Services.Auth
                .FirstOrDefaultAsync(u => u.Email == request.Email);
 
             if (user == null)
-                throw new Exception("Invalid credentials");
+                throw new RestException(System.Net.HttpStatusCode.Unauthorized, "Invalid credentials.");
 
             bool isPasswordCorrect = _passwordHasher.Verify(user, request.Password);
 
             if (!isPasswordCorrect)
-                throw new Exception("Invalid credentials");
+                throw new RestException(System.Net.HttpStatusCode.Unauthorized, "Invalid credentials.");
 
             var response = new AuthResponseDto
             {
@@ -44,7 +45,7 @@ namespace Corpcore.Services.Auth
 
             if (isExistingUser)
             {
-                throw new Exception("User already exists.");
+                throw new RestException(System.Net.HttpStatusCode.Conflict, "User already exists.");
             }
 
             var isExistingOrganization = await _context.Organizations
@@ -52,7 +53,7 @@ namespace Corpcore.Services.Auth
 
             if (isExistingOrganization) 
             {
-                throw new Exception("Organization already exists.");
+                throw new RestException(System.Net.HttpStatusCode.Conflict, "Organization already exists.");
             }
 
             var organization = new Organization
