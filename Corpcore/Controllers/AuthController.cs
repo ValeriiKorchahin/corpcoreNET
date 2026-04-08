@@ -11,29 +11,15 @@ namespace Corpcore.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto request)
         {
-            try
-            {
                 var response = await _authService.Login(request);
                 return Ok(response);
-            }
-            catch
-            {
-                throw new Exception("Failded.");
-            }
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto request)
         {
-            try
-            {
                 var response = await _authService.Register(request);
                 return Ok(response);
-            }
-            catch
-            {
-                throw new Exception("Register Failed.");
-            }
         }
     }
 }
