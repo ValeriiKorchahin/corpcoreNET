@@ -1,10 +1,12 @@
 ﻿using Corpcore.Services.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Corpcore.Controllers
 {
-    [Route("api/[controller]")]
+    [Authorize]
+    [Route("api/[controller]/countries")]
     [ApiController]
     public class UtilsController(IUtilsService utilsService) : ControllerBase
     {

@@ -9,5 +9,6 @@ namespace Corpcore.Dtos.Auth
         public required string Email { get; set; }
         public OrganizationRolesEnum Role { get; set; }
         public Guid OrganizationId { get; set; }
+        public required string Token { get; set; }
     }
 }
