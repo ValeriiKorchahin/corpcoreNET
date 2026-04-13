@@ -3,6 +3,7 @@ using Corpcore.Middlewares;
 using Corpcore.Models;
 using Corpcore.Services.Auth;
 using Corpcore.Services.Auth.Password;
+using Corpcore.Services.Utils;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
@@ -22,6 +23,7 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<IPasswordHasherService, PasswordHasherService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IUtilsService, UtilsService>();
 
 var app = builder.Build();
 
