@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Corpcore.Dtos.Company
 {
-    public class CreateCompanyDto
+    public class UpdateCompanyDto
     {
         [Required]
         public required string Name { get; set; }

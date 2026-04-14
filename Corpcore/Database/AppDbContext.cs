@@ -8,6 +8,7 @@ namespace Corpcore.Database
         public DbSet<Organization> Organizations { get; set; }
         public DbSet<User> Users { get; set; } 
         public DbSet<Country> Countries { get; set; }
+        public DbSet<Company> Companies { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

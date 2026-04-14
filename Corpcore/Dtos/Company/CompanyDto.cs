@@ -7,6 +7,5 @@
         public required DateOnly Established { get; set; }
         public required Guid CountryId { get; set; }
         public required string Address { get; set; }
-        public required Guid OrganizationId { get; set; }
     }
 }

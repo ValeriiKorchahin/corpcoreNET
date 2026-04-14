@@ -4,6 +4,8 @@ using Corpcore.Middlewares;
 using Corpcore.Models;
 using Corpcore.Services.Auth;
 using Corpcore.Services.Auth.Password;
+using Corpcore.Services.Claims;
+using Corpcore.Services.Company;
 using Corpcore.Services.JWT;
 using Corpcore.Services.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -28,12 +30,15 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 builder.Services.Configure<JwtToken>(
     builder.Configuration.GetSection("JwtSettings")
     );
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+builder.Services.AddScoped<IClaimsService, ClaimsService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<IPasswordHasherService, PasswordHasherService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUtilsService, UtilsService>();
+builder.Services.AddScoped<ICompanyService, CompanyService>();
 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtToken>();
 
