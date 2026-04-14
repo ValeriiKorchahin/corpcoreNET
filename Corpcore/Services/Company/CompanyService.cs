@@ -61,11 +61,19 @@ namespace Corpcore.Services.Company
         {
             var organizationId = _claimsService.GetOrganizationId();
 
-            var existingName = await _utilsService.IsExistingCountry(request.CountryId);
+            var existingName = await _context.Companies
+                .AnyAsync(c => c.OrganizationId == organizationId && c.Name == request.Name);
 
             if (existingName)
             {
                 throw new RestException(System.Net.HttpStatusCode.Conflict, "Company with the given name already exists.");
+            }
+
+            var isExistingCountry = await _utilsService.IsExistingCountry(request.CountryId);
+
+            if (!isExistingCountry)
+            {
+                throw new RestException(System.Net.HttpStatusCode.NotFound, "Provided country not found.");
             }
 
             var company = new Models.Company
