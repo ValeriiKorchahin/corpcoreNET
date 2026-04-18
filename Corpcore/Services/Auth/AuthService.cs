@@ -2,6 +2,7 @@
 using Corpcore.Dtos.Auth;
 using Corpcore.Models;
 using Corpcore.Services.Auth.Password;
+using Corpcore.Services.JWT;
 using Corpcore.Utils.Error;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,7 +10,8 @@ namespace Corpcore.Services.Auth
 {
     public class AuthService(
         AppDbContext _context,
-        IPasswordHasherService _passwordHasher
+        IPasswordHasherService _passwordHasher,
+        IJwtTokenService _jwtTokenService
         ) : IAuthService
     {
 
@@ -32,7 +34,8 @@ namespace Corpcore.Services.Auth
                 Email = user.Email,
                 Name = user.Name,
                 Role = user.Role,
-                OrganizationId = user.OrganizationId
+                OrganizationId = user.OrganizationId,
+                Token = _jwtTokenService.GenerateToken(user)
             };
 
             return response;
@@ -95,6 +98,7 @@ namespace Corpcore.Services.Auth
                 Name = user.Name,
                 Role = user.Role,
                 OrganizationId = organization.Id,
+                Token = _jwtTokenService.GenerateToken(user),
             };
 
             return response;
