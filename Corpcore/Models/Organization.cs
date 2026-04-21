@@ -5,5 +5,6 @@
         public Guid Id { get; set; }
         public required string Name { get; set; }
         public ICollection<User> Users { get; set; } = new List<User>();
+        public ICollection<Company> Companies { get; set; } = new List<Company>();
     }
 }

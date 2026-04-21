@@ -11,5 +11,6 @@ namespace Corpcore.Models
         public OrganizationRolesEnum Role { get; set; }
         public Guid OrganizationId { get; set; }
         public Organization? Organization { get; set; }
+        public ICollection<UserCompany> UserCompanies { get; set; } = new List<UserCompany>();
     }
 }
