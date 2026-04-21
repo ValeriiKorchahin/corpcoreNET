@@ -60,6 +60,7 @@ namespace Corpcore.Services.Company
         public async Task<CompanyDto> Create(CreateCompanyDto request) 
         {
             var organizationId = _claimsService.GetOrganizationId();
+            var userId = _claimsService.GetUserId();
 
             var existingName = await _context.Companies
                 .AnyAsync(c => c.OrganizationId == organizationId && c.Name == request.Name);
@@ -85,7 +86,16 @@ namespace Corpcore.Services.Company
                 Address = request.Address,
                 OrganizationId = organizationId
             };
+
             _context.Companies.Add(company);
+
+            var companyUser = new Models.UserCompany
+            {
+                CompanyId = company.Id,
+                UserId = userId,
+            };
+
+            _context.UserCompany.Add(companyUser);
 
             await _context.SaveChangesAsync();
 
